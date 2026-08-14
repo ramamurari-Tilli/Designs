@@ -1,7 +1,6 @@
 # Nudge Configuration — Simple Guide & Plan
 
-A plain-language guide to how Nudge notifications work in TilliPay, what is already built, how it affects the database, the full list of notifications, and the exact steps to extend the "dynamic merge tags" feature to the remaining notifications.
----
+This document explains: what the Nudge notification system is, how it is set up in TilliPay, what is already built, what still needs to be built and how, a full list of every notification (the "inventory"), and where each one is triggered from in the code.
 
 ## 1. The basics
 
@@ -100,6 +99,17 @@ These are the three notifications targeted for dynamic merge tags — the same t
 - **Each merchant can customise** these notifications for themselves, instead of everyone sharing one hardcoded set.
 - **Existing merchants are unaffected** — if a merchant has not configured any blanks, they keep receiving exactly the same emails as before (because of the fallback).
 - The only new data created is rows in `nudge_merge_tags`; nothing else in the system changes shape.
+
+**How the admin uses it (step by step, after implementation):**
+1. Open the **Nudge configuration page** — for a specific merchant, or for the shared "default" that applies to everyone.
+2. Find the notification to edit (e.g. *Payment reversal*, *Payment link request*).
+3. For each blank in the Nudge template, add a row with two values:
+   - **Tag name** = the placeholder in the Nudge template (e.g. `customer_name`).
+   - **Tag value** = the TilliPay field the real value comes from (e.g. `customer_name`).
+4. Add, rename, or remove rows as needed, then **Save**.
+5. The change takes effect on the **next notification sent** — no code change, no redeploy.
+
+*What the admin should keep in mind:* a tag value must be a field the system actually provides for that notification (the available fields are the same facts the message already knows — customer name, amount, date, etc.). If a blank is left unconfigured for a merchant, that merchant keeps getting the original default content (the safety fallback).
 ---
 
 ## 8. Making sure existing functionality is not broken
