@@ -112,5 +112,5 @@ opens fresh and works normally.
   the three controls are evaluated separately, and only Group's is re-checked when Select
   changes.
 - Having and Execute appear to recover only when **Group** itself is edited, not when
-  Select is. That matches PS-PQ-06, where emptying Group disables Having and Execute.
+  Select is.
 - Seen on both BillPay and MerchantE, so it is not specific to one gateway's field set.
