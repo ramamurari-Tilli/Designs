@@ -58,6 +58,24 @@ the page is reloaded or the user navigates away and back.
 
 ## Evidence
 
+### [Image #17] — before anything is removed
+
+![Select and Group full, Having usable and Execute enabled](PS-PQ-05/Image-17-before-panel-working.png)
+
+SnapPay (`989510541880`), 16:38.
+The panel as it opens. Select and Group each hold all four fields, the three Having
+dropdowns read "select any option" and are usable, and **Execute is blue and clickable**.
+This is the state the panel should return to once Select is refilled.
+
+### [Image #15] — the intermediate state, which is correct
+
+![Select emptied, Group chips greyed, Having and Execute greyed](PS-PQ-05/Image-15-select-emptied-all-disabled.png)
+
+BillPay, 16:19.
+Select has been emptied and shows only the "select options" placeholder. The Group chips
+— Funding Method, Funding Category, Channel, Displayed Fee Amount — are greyed, the
+Having dropdowns are greyed, and **Execute** is greyed. This is the intermediate state,
+which is the correct behaviour for an empty Select.
 ### [Image #14] — the broken end state
 
 ![Select and Group full, yet Having and Execute greyed out](PS-PQ-05/Image-14-select-refilled-having-execute-disabled.png)
@@ -69,18 +87,8 @@ dropdowns and the And/Or dropdown are greyed out, and the **Execute** button is 
 out while Cancel remains active. This is the state left behind after Select was emptied
 and refilled.
 
-### [Image #15] — the intermediate state, which is correct
-
-![Select emptied, Group chips greyed, Having and Execute greyed](PS-PQ-05/Image-15-select-emptied-all-disabled.png)
-
-BillPay, 16:19.
-Select has been emptied and shows only the "select options" placeholder. The Group chips
-— Funding Method, Funding Category, Channel, Displayed Fee Amount — are greyed, the
-Having dropdowns are greyed, and **Execute** is greyed. This is the intermediate state,
-which is the correct behaviour for an empty Select.
-
-In both screenshots the date range and the results table below are unaffected, so the
-page itself is healthy — only the query controls are stuck.
+In all three screenshots the date range and the results table below are unaffected, so
+the page itself is healthy — only the query controls are stuck.
 
 ---
 
@@ -106,26 +114,3 @@ opens fresh and works normally.
 - Having and Execute appear to recover only when **Group** itself is edited, not when
   Select is. That matches PS-PQ-06, where emptying Group disables Having and Execute.
 - Seen on both BillPay and MerchantE, so it is not specific to one gateway's field set.
-
----
-
-## Automation
-
-This is covered by the automated suite, which records the partial recovery rather than
-treating it as a flake:
-
-- **Test:** `Payment Stats locks the query controls when Select is emptied @regression @PS-PQ-05`
-- **File:** `tests/customer/payment-analytics/payment-analytics.spec.ts`
-
-The test asserts that Group recovers, and separately asserts that Having is still
-disabled. When this bug is fixed that last assertion will start failing, which is the
-signal to update it.
-
----
-
-## Related
-
-| Case | Relevance |
-|---|---|
-| PS-PQ-06 | Emptying **Group** disables Having and Execute — the same controls, different trigger |
-| PS-PQ-16 | MerchantE's Prepare Query panel is inert — separate defect on the same panel |
