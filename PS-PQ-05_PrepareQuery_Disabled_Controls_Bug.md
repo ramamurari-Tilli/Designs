@@ -58,14 +58,22 @@ the page is reloaded or the user navigates away and back.
 
 ## Evidence
 
-**[Image #14]** — MerchantE (`ACH_MERCHANT_E`), 15:50.
+### [Image #14] — the broken end state
+
+![Select and Group full, yet Having and Execute greyed out](PS-PQ-05/Image-14-select-refilled-having-execute-disabled.png)
+
+MerchantE (`ACH_MERCHANT_E`), 15:50.
 Select holds all four fields — Request Type, Channel, transaction Amount, Fee Amount —
 and Group holds the same four. Despite the panel being fully populated, all three Having
 dropdowns and the And/Or dropdown are greyed out, and the **Execute** button is greyed
 out while Cancel remains active. This is the state left behind after Select was emptied
 and refilled.
 
-**[Image #15]** — BillPay, 16:19.
+### [Image #15] — the intermediate state, which is correct
+
+![Select emptied, Group chips greyed, Having and Execute greyed](PS-PQ-05/Image-15-select-emptied-all-disabled.png)
+
+BillPay, 16:19.
 Select has been emptied and shows only the "select options" placeholder. The Group chips
 — Funding Method, Funding Category, Channel, Displayed Fee Amount — are greyed, the
 Having dropdowns are greyed, and **Execute** is greyed. This is the intermediate state,
